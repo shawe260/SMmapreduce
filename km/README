@@ -1,0 +1,29 @@
+1.  You can configure the system parameters in lib/header.h, such as the number of
+    groups in each thread block (NUM_GROUPS), the number of thread blocks (NUM_BLOCKS)
+    and the number of threads in each thread block (NUM_THREADS). You should also
+    indicate whether shared memory is used based on the application. For KM, the shared
+    memory should be used since it is reduction-intensive. You should also indicate
+    whether use swapping or sorting when shared memory reduction object is full. For
+    applications like kNN, sorting should be used.
+
+2.  lib/common.h defines the system parameters like the bucket number in shared memory
+    reduction object, the shared memory pool size, the bucket number in device memory
+    reduction object, and the global memory pool size. SORT_REMAIN defines how many 
+    key-value pairs should be kept after sorting the shared memory reduction object. 
+    This parameter is only used when an application needs sorting as a overflow handling method.
+
+3.  map and reduce functions are defined in mapreduce.h. Other help functions such as
+    compare (used in sorting), equal (used in key-value pair inserting) are also defined here. 
+
+4.  lib/hash.h defines the hash function used to hash a key. You can change the hash
+    function according to the applications you are writting.
+
+5.  kmeans.h contains the applicaiton arguments, such as the number of points, 
+    dimension and K (number of clusters).
+
+6.  To compile, you need to configure the NVCC installation path in Makefile. 
+    Then type: make, the executable "main" will be generated.
+
+7.  To generate input data, compile gendata.cpp and run it, file "data" will be generated.
+
+8.  To run, use command ./main.  

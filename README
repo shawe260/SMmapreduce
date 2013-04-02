@@ -1,0 +1,51 @@
+We have implementated 7 applications on our framework. 
+And they have been evaluated on both a Tesla C1060 GPU and a FX 5800 GPU.
+
+
+The applications are:
+
+1.  km, kmeans clustering.
+    It clusters a large amount of points based on the distance from each cluster centroid.
+    Our example only runs 1 iteration for this application.
+    This is a reduction-intensive application, thus shared memory reduction objects
+    are used.
+
+2.  wc, word count.
+    It counts the number of occurrences for each word in a file. 
+    This is a reduction-intensive application, thus shared memory reduction objects
+    are used.
+
+3.  nbc, naive bayes classfier.
+    Given two sets of observations, one with classi.cations, one without, the algorithm classifies
+    the second set.
+    This application has 30 distinct keys, thus tends to be a recution-intensive application.
+    Shared memory reduction objects are used.
+
+4.  knn, k-nearest neighbor search.
+    Given n training samples and one unknown sample, the k-nearest neighbor classifier 
+    searches the training samples by euclidean distance and finds the k nearest points to
+    the unknown sample. Then it classifies the unknown sample according to the majority 
+    vote of the k nearest samples.
+    This application needs runtime sorting and frequent overflow handling. Shared
+    memory reduction objects are used.
+
+5.  pvc, page view count.
+    Page View Count (PVC), obtains the number of distinct page views from web logs. 
+    Each entry in the web log is represented as <URL, IP>, where URL is the URL of 
+    the accessed page and IP is the IP address that accesses the page. This
+    application involves two passes in MapReduce. The first one removes the duplicate 
+    entries in the web logs, and the second one counts the number of views for each URL.
+    Typically, the datasets have a lot of repeated entries, so the application is 
+    reduction-intensive in nature. Shared memory reduction objects are used.
+
+6.  mm, matrix multiplication.
+    No reduction is involved, thus only a global reduction object is used.
+
+7.  pca, principle component analysis.
+    No reduction is involved, thus only a global reduction object is used.
+
+For methods of compiling and running these applications, please
+refer to the README file in each example folder.
+
+Welcome to report bugs to us and discuss other related problems with us. 
+Linchuan Chen, Email: chenlinc@cse.ohio-state.edu
